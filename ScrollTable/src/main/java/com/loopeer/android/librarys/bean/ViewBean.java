@@ -1,6 +1,7 @@
 package com.loopeer.android.librarys.bean;
 
 import com.loopeer.android.librarys.data.Cell;
+import com.loopeer.android.librarys.data.State;
 
 /**
  * @author jyb jyb_96@sina.com on 2017/6/29.
@@ -18,7 +19,16 @@ public class ViewBean extends Cell {
     private int floor;//层数
     private int type;//1是正常 2是合并 3是拆分
     private double rightTopUnit;//右上角距离最左边的距离
+    private State state;
 
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 
     public double getRightTopUnit() {
         return rightTopUnit;

@@ -157,8 +157,6 @@ public class CustomTableView extends View {
                 }
 
 
-
-
             }
         }
 
@@ -205,19 +203,22 @@ public class CustomTableView extends View {
                 float bottom = viewBean.bottom;
 
 
-                if (columnIndex == 1) {
-                    mPaintItemBg.setColor(Color.parseColor("#FF6600"));
-                    Log.e("table", "bottom" + bottom);
-                }
-                if (columnIndex == 2) {
-                    mPaintItemBg.setColor(Color.parseColor("#00CD66"));
-                    Log.e("table", "top" + top);
-                }
-
-//                if (columnIndex == 0 || columnIndex == 1) {
-//                    canvas.drawRect(left, top, right, bottom, mPaintItemBg);
+//                if (columnIndex == 1) {
+//                    mPaintItemBg.setColor(Color.parseColor("#FF6600"));
+//                    Log.e("table", "bottom" + bottom);
 //                }
+//                if (columnIndex == 2) {
+//                    mPaintItemBg.setColor(Color.parseColor("#00CD66"));
+//                    Log.e("table", "top" + top);
+//                }
+
+
+                //这里画大背景
+                mPaintItemBg.setColor(Color.parseColor(viewBean.getState().getColor()));
                 canvas.drawRect(left, top, right, bottom, mPaintItemBg);
+                mPaintItemBg.setColor(Color.parseColor(viewBean.getState().getBorder()));
+                //这里画border
+                changePaint(mPaintItemBg, viewBean, canvas);
 
                 String content = viewBean.getText();
                 float viewWidth = right - left;
@@ -231,6 +232,15 @@ public class CustomTableView extends View {
                 canvas.drawText(content, x, y, mPaintTextNormal);
             }
         }
+    }
+
+    //画四条边线
+    private void changePaint(Paint mPaintItemBg, ViewBean viewBean, Canvas canvas) {
+        canvas.drawLine(viewBean.left, viewBean.top, viewBean.right, viewBean.top , mPaintItemBg);//上边线
+        canvas.drawLine(viewBean.left, viewBean.bottom, viewBean.right, viewBean.bottom , mPaintItemBg);//下边线
+        canvas.drawLine(viewBean.left, viewBean.top, viewBean.left, viewBean.bottom, mPaintItemBg);//左边线
+        canvas.drawLine(viewBean.right, viewBean.top, viewBean.right, viewBean.bottom, mPaintItemBg);//右边线
+
     }
 
 
