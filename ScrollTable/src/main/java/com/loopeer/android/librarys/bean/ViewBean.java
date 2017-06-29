@@ -1,5 +1,7 @@
 package com.loopeer.android.librarys.bean;
 
+import com.loopeer.android.librarys.data.Cell;
+
 /**
  * @author jyb jyb_96@sina.com on 2017/6/29.
  * @version V1.0
@@ -8,7 +10,7 @@ package com.loopeer.android.librarys.bean;
  * @copyright www.tops001.com
  */
 
-public class ViewBean {
+public class ViewBean extends Cell {
 
     private String text;//文字
     private double width;//因为width可以拆分。
@@ -16,12 +18,6 @@ public class ViewBean {
     private int floor;//层数
     private int type;//1是正常 2是合并 3是拆分
     private double rightTopUnit;//右上角距离最左边的距离
-
-    //用于存储这个对象所在的坐标区域，用于响应点击事件。
-    public float left;
-    public float right;
-    public float top;
-    public float bottom;
 
 
     public double getRightTopUnit() {

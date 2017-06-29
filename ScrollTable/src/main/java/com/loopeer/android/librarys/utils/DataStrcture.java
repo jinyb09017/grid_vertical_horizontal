@@ -23,7 +23,7 @@ public class DataStrcture {
         List<List<ViewBean>> beans = new ArrayList<>();
 
         //二层
-        for (int floor = 0; floor < 2; floor++) {
+//        for (int floor = 0; floor < 2; floor++) {
 
             //first floor
             List<ViewBean> viewBeans1 = new ArrayList<>();
@@ -112,7 +112,7 @@ public class DataStrcture {
 
 
             beans.add(viewBeans2);
-        }
+//        }
 
         return beans;
 

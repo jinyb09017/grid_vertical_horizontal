@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -41,6 +42,8 @@ public class CustomTableView extends View {
     private OnPositionDataClickListener mOnPositionDataClickListener;
     List<List<ViewBean>> beans = DataStrcture.getViewDatas();
 
+    private Rect rect = new Rect(); // it just for store the width and height;
+
     public CustomTableView(Context context) {
         this(context, null);
     }
@@ -60,6 +63,9 @@ public class CustomTableView extends View {
         initData();
         initPaint();
         datas = new ArrayList<>();
+
+        //init data beans;
+        initViewBean(rect);
     }
 
     private void initData() {
@@ -89,7 +95,8 @@ public class CustomTableView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        setMeasuredDimension(column * mItemWidth + (column - 1) * mItemMargin, row * mItemHeight + row * mItemMargin);
+//        setMeasuredDimension(column * mItemWidth + (column - 1) * mItemMargin, row * mItemHeight + row * mItemMargin);
+        setMeasuredDimension(rect.right, rect.bottom);
     }
 
     @Override
@@ -100,8 +107,16 @@ public class CustomTableView extends View {
 
     }
 
+    /**
+     * 1、confirm the coordinate of every viewBena
+     * 2、get maxWidth and maxHeight;
+     *
+     * @param rect
+     */
+    public void initViewBean(Rect rect) {
+        int maxHeight = 0;
+        int maxWidth = 0;
 
-    private void drawItem(Canvas canvas) {
 
         int row = beans.size();
 
@@ -133,10 +148,62 @@ public class CustomTableView extends View {
                 viewBean.top = top;
                 viewBean.bottom = bottom;
 
+                if (maxHeight < viewBean.bottom) {
+                    maxHeight = (int) (viewBean.bottom + 0.5);
+                }
 
-//                if (columnIndex < 2 && rowIndex == 0) {
-//                    canvas.drawRect(left, top, right, bottom, mPaintItemBg);
+                if (maxWidth < viewBean.right) {
+                    maxWidth = (int) (viewBean.right + 0.5);
+                }
+
+
+
+
+            }
+        }
+
+        rect.right = maxWidth;
+        rect.bottom = maxHeight + mItemMargin;
+    }
+
+
+    private void drawItem(Canvas canvas) {
+
+        int row = beans.size();
+
+        for (int rowIndex = 0; rowIndex < row; rowIndex++) {
+
+            int column = beans.get(rowIndex).size();
+            List<ViewBean> rowBeans = beans.get(rowIndex);
+
+            for (int columnIndex = 0; columnIndex < column; columnIndex++) {
+
+                ViewBean viewBean = rowBeans.get(columnIndex);
+
+//                int allUnit = (int) (viewBean.getRightTopUnit() - viewBean.getWidth());//距离左边的正常单元格数，用于计算itemMargin数目
+//                int left = allUnit * (mItemWidth + mItemMargin) + mItemMargin + convert(viewBean.getRightTopUnit() - viewBean.getWidth() - allUnit, mItemWidth);//整数单元 + 拆分单元
+//
+//                float right;
+//                if (viewBean.getWidth() > 1) {
+//                    right = left + convert(viewBean.getWidth(), mItemWidth) + convert((viewBean.getWidth() - 1), mItemMargin);
+//                } else {
+//                    right = left + convert(viewBean.getWidth(), mItemWidth);
 //                }
+//
+////                float left = convert(viewBean.getRightTopUnit()) - convert(viewBean.getWidth())-mItemMargin * (columnIndex+1);
+//                float top = rowIndex * (mItemHeight) + mItemMargin * (rowIndex + 1);
+//                float bottom = top + mItemHeight * viewBean.getHeight() + mItemMargin * (viewBean.getHeight() - 1);
+//
+//                viewBean.left = left;
+//                viewBean.right = right;
+//                viewBean.top = top;
+//                viewBean.bottom = bottom;
+
+                float left = viewBean.left;
+                float right = viewBean.right;
+                float top = viewBean.top;
+                float bottom = viewBean.bottom;
+
 
                 if (columnIndex == 1) {
                     mPaintItemBg.setColor(Color.parseColor("#FF6600"));
@@ -190,7 +257,6 @@ public class CustomTableView extends View {
     }
 
 
-
     public void setRowAndColumn(int row, int column) {
         this.row = row;
         this.column = column;
@@ -206,12 +272,9 @@ public class CustomTableView extends View {
     }
 
 
-
     public void setOnPositionDataClickListener(OnPositionDataClickListener listener) {
         mOnPositionDataClickListener = listener;
     }
-
-
 
 
     public boolean onTouchEvent(MotionEvent event) {
@@ -222,13 +285,13 @@ public class CustomTableView extends View {
                 break;
             case MotionEvent.ACTION_UP:
 
-                ViewBean viewBean = getViewBean(event.getX(),event.getY());
+                ViewBean viewBean = getViewBean(event.getX(), event.getY());
 
-                if(viewBean == null){
+                if (viewBean == null) {
                     return true;
                 }
 
-                if(mOnPositionDataClickListener != null){
+                if (mOnPositionDataClickListener != null) {
                     mOnPositionDataClickListener.onPositionClick(viewBean);
                 }
                 break;
@@ -239,6 +302,7 @@ public class CustomTableView extends View {
 
     /**
      * 查找响应的单元格
+     *
      * @param x
      * @param y
      * @return
@@ -254,12 +318,12 @@ public class CustomTableView extends View {
 
                 ViewBean viewBean = rowBeans.get(columnIndex);
 
-                boolean hit = x > viewBean.left && x <viewBean.right && y > viewBean.top && y < viewBean.bottom;
-                if(hit){
-                    Log.e("hit","i was hit");
+                boolean hit = x > viewBean.left && x < viewBean.right && y > viewBean.top && y < viewBean.bottom;
+                if (hit) {
+                    Log.e("hit", "i was hit");
                     return viewBean;
-                }else{
-                    Log.e("hit","i was not hit");
+                } else {
+                    Log.e("hit", "i was not hit");
                 }
 
             }
@@ -270,6 +334,7 @@ public class CustomTableView extends View {
 
     public interface OnPositionDataClickListener {
         void onPositionClick(ViewBean viewBean);
+
     }
 
     public void setItemHeight(int height) {
