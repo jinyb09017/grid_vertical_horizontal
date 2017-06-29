@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="table_text_select_color">@android:color/white</color>
+  <color name="table_text_normal_color">#2B2B2B</color>
+  <color name="table_text_unable_color">#CBCBCB</color>
+  <color name="table_item_bg_normal_color">@android:color/holo_red_dark</color>
+  <color name="table_item_bg_select_color">@android:color/holo_blue_bright</color>
+  <color name="table_gap_color">#f0f0f0</color>
+  <color name="table_diver_color">#dcdcdc</color>
+
+  <color name="table_text_secondary_color">#727272</color>
+  <color name="table_bg">#ffffff</color>
+  <color name="table_title">#cc000000</color>
+
+</resources>
