@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--<com.loopeer.android.librarys.scrolltable.IHorizontalScrollView-->
-    <!--android:id="@+id/scroll_header_horizontal"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/table_top_title_height"-->
-    <!--android:layout_marginLeft="@dimen/table_left_title_width"-->
-    <!--&gt;-->
-
-    <!--<com.loopeer.android.librarys.scrolltable.TopTitleView-->
-    <!--android:id="@+id/header_horizontal"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"/>-->
-
-    <!--</com.loopeer.android.librarys.scrolltable.IHorizontalScrollView>-->
 
     <com.loopeer.android.librarys.scrolltable.GridHeader
         android:layout_width="match_parent"

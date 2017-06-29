@@ -100,27 +100,6 @@ public class CustomTableView extends View {
 
     }
 
-    private void drawItem1(Canvas canvas) {
-        for (int rowIndex = 0; rowIndex < row; rowIndex++) {
-            for (int columnIndex = 0; columnIndex < column; columnIndex++) {
-
-                float left = mItemWidth * columnIndex + mItemMargin * (columnIndex + 1);
-                float right = left + mItemWidth;
-                float top = mItemHeight * rowIndex + mItemMargin * (rowIndex + 1);
-                float bottom = top + mItemHeight;
-                canvas.drawRect(left, top, right, bottom, mPaintItemBg);
-
-                String content = getShowData(rowIndex, columnIndex);
-                Paint.FontMetrics fontMetrics = mPaintTextNormal.getFontMetrics();
-                float fontHeight = fontMetrics.bottom - fontMetrics.top;
-                float textWidth = mPaintTextNormal.measureText(content);
-                float y = top + mItemHeight - (mItemHeight - fontHeight) / 2 - fontMetrics.bottom;
-                float x = left + mItemWidth / 2 - textWidth / 2;
-
-                canvas.drawText(content, x, y, mPaintTextNormal);
-            }
-        }
-    }
 
     private void drawItem(Canvas canvas) {
 
@@ -133,11 +112,6 @@ public class CustomTableView extends View {
 
             for (int columnIndex = 0; columnIndex < column; columnIndex++) {
 
-//                float left =  mItemWidth * columnIndex + mItemMargin * (columnIndex+1);
-//                float right = left + mItemWidth;
-//                float top = mItemHeight * rowIndex + mItemMargin * (rowIndex + 1);
-//                float bottom = top + mItemHeight;
-//                canvas.drawRect(left, top, right, bottom, mPaintItemBg);
                 ViewBean viewBean = rowBeans.get(columnIndex);
 
                 int allUnit = (int) (viewBean.getRightTopUnit() - viewBean.getWidth());//距离左边的正常单元格数，用于计算itemMargin数目
@@ -242,18 +216,17 @@ public class CustomTableView extends View {
 
     public boolean onTouchEvent(MotionEvent event) {
 
-
-        ViewBean viewBean = getViewBean(event.getX(),event.getY());
-
-        if(viewBean == null){
-            return true;
-        }
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
 
                 break;
             case MotionEvent.ACTION_UP:
 
+                ViewBean viewBean = getViewBean(event.getX(),event.getY());
+
+                if(viewBean == null){
+                    return true;
+                }
 
                 if(mOnPositionDataClickListener != null){
                     mOnPositionDataClickListener.onPositionClick(viewBean);
@@ -264,9 +237,13 @@ public class CustomTableView extends View {
     }
 
 
-
+    /**
+     * 查找响应的单元格
+     * @param x
+     * @param y
+     * @return
+     */
     public ViewBean getViewBean(float x, float y) {
-//        List<List<ViewBean>> beans = DataStrcture.getViewDatas();
         int row = beans.size();
         for (int rowIndex = 0; rowIndex < row; rowIndex++) {
 
