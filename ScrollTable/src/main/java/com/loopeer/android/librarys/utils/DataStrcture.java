@@ -24,7 +24,7 @@ public class DataStrcture {
         List<List<ViewBean>> beans = new ArrayList<>();
 
         //二层
-//        for (int floor = 0; floor < 2; floor++) {
+        for (int floor = 0; floor < 30; floor++) {
 
         //first floor
         List<ViewBean> viewBeans1 = new ArrayList<>();
@@ -121,7 +121,22 @@ public class DataStrcture {
 
 
         beans.add(viewBeans2);
-//        }
+
+
+        //second floor
+//        List<ViewBean> viewBeans3 = new ArrayList<>();
+//        ViewBean viewBean31 = new ViewBean();
+//        viewBean31.setText(1 + "");
+//        viewBean31.setFloor(3);
+//        viewBean31.setHeight(2);
+//        viewBean31.setWidth(1);
+//        viewBean31.setType(2);
+//        viewBean31.setState(State.pre);
+//        viewBean31.setRightTopUnit(1);
+//        viewBeans3.add(viewBean31);
+//
+//        beans.add(viewBeans3);
+        }
 
         return beans;
 

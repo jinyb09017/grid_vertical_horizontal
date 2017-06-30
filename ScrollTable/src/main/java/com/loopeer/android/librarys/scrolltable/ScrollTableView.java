@@ -10,14 +10,16 @@ import android.widget.Toast;
 import com.loopeer.android.librarys.bean.ViewBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ScrollTableView extends LinearLayout implements CustomTableView.OnPositionDataClickListener {
+public class ScrollTableView extends LinearLayout implements CustomTableView.OnPositionDataClickListener,GridHeader.OnPositionCallBack {
 
     private LeftTitleView headerVertical;
     private CustomTableView contentView;
+    private GridHeader gridHeader;
     private ArrayList<String> topTitles;
     private ArrayList<String> leftTitles;
-    private ArrayList<ArrayList<String>> datas;
+    private List<List<ViewBean>> datas;
 
     public ScrollTableView(Context context) {
         this(context, null);
@@ -51,6 +53,8 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
     private void setUpView() {
         headerVertical = (LeftTitleView) findViewById(R.id.header_vertical);
         contentView = (CustomTableView) findViewById(R.id.content_view);
+        gridHeader = (GridHeader) findViewById(R.id.gridHeader);
+        gridHeader.setOnPositionCallBack(this);
 
     }
 
@@ -68,11 +72,10 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
         leftTitles = new ArrayList<>();
         topTitles = new ArrayList<>();
         datas = new ArrayList<>();
-        contentView.setRowAndColumn(leftTitles.size(), topTitles.size());
         contentView.setOnPositionDataClickListener(this);
     }
 
-    public void setDatas(ArrayList<String> topTitlesData, ArrayList<String> leftTitlesData, ArrayList<ArrayList<String>> itemData) {
+    public void setDatas(ArrayList<String> topTitlesData, ArrayList<String> leftTitlesData, List<List<ViewBean>> itemData) {
         topTitles.clear();
         leftTitles.clear();
         datas.clear();
@@ -84,7 +87,6 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
 
     private void updateView() {
         headerVertical.updateTitles(leftTitles);
-        contentView.setRowAndColumn(leftTitles.size(), topTitles.size());
         contentView.setDatas(datas);
     }
 
@@ -92,5 +94,10 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
     @Override
     public void onPositionClick(ViewBean viewBean) {
         Toast.makeText(this.getContext(),viewBean.getText(),Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void click(int position) {
+
     }
 }

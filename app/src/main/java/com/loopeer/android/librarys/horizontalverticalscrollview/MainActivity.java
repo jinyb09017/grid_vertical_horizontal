@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.loopeer.android.librarys.scrolltable.ScrollTableView;
+import com.loopeer.android.librarys.utils.DataStrcture;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         scrollTableView = (ScrollTableView) findViewById(R.id.scroll_table_view);
         ArrayList<String> leftTitle = createLeftTitle();
         ArrayList<String> topTitles = createTopTitles();
-        scrollTableView.setDatas(createTopTitles(), createLeftTitle(), createContent(leftTitle.size(), topTitles.size()));
+        scrollTableView.setDatas(createTopTitles(), createLeftTitle(), DataStrcture.getViewDatas());
     }
 
     private ArrayList<ArrayList<String>> createContent(int row, int column) {
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<String> createLeftTitle() {
         ArrayList<String> results = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 20; i++) {
             results.add(i + ":00");
         }
         return results;

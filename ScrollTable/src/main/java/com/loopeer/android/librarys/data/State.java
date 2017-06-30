@@ -11,7 +11,7 @@ package com.loopeer.android.librarys.data;
 public enum State {
 
     to("待售", "#e3e3e3", "#ffffff"),
-    pre("预售", "#e2b838", "#ddaa10"),
+    pre("预售", "#e2b838", "#ddaa10"),//ddaa10
     done("已售", "#ec675d", "#e74d4d"),
     limit("限售", "#87888a", "#7d7f82"),
     sample("样板", "#24aec3", "#1aa1b6");

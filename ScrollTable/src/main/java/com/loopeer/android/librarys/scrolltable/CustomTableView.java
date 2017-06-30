@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.loopeer.android.librarys.bean.ViewBean;
-import com.loopeer.android.librarys.utils.DataStrcture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,19 +27,14 @@ public class CustomTableView extends View {
     private int mTextNormalColor;
     private int mTextSelectColor;
     private int mItemBgNormalColor;
-    private int mItemBgSelectColor;
     private float mTextNormal;
 
     private int mItemHeight;
     private int mItemWidth;
     private int mItemMargin;
-    private ArrayList<ArrayList<String>> datas;
-
-    private int row = 2;
-    private int column = 4;
 
     private OnPositionDataClickListener mOnPositionDataClickListener;
-    List<List<ViewBean>> beans = DataStrcture.getViewDatas();
+    List<List<ViewBean>> beans = new ArrayList<>();
 
     private Rect rect = new Rect(); // it just for store the width and height;
 
@@ -62,7 +56,6 @@ public class CustomTableView extends View {
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         initData();
         initPaint();
-        datas = new ArrayList<>();
 
         //init data beans;
         initViewBean(rect);
@@ -79,7 +72,6 @@ public class CustomTableView extends View {
         mTextUnableColor = ContextCompat.getColor(getContext(), R.color.table_text_unable_color);
         mTextSelectColor = ContextCompat.getColor(getContext(), R.color.table_text_select_color);
         mItemBgNormalColor = ContextCompat.getColor(getContext(), R.color.table_item_bg_normal_color);
-        mItemBgSelectColor = ContextCompat.getColor(getContext(), R.color.table_item_bg_select_color);
         mTextNormal = getResources().getDimension(R.dimen.table_default_text_size);
 
         mPaintTextNormal = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -95,7 +87,6 @@ public class CustomTableView extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-//        setMeasuredDimension(column * mItemWidth + (column - 1) * mItemMargin, row * mItemHeight + row * mItemMargin);
         setMeasuredDimension(rect.right, rect.bottom);
     }
 
@@ -236,8 +227,8 @@ public class CustomTableView extends View {
 
     //画四条边线
     private void changePaint(Paint mPaintItemBg, ViewBean viewBean, Canvas canvas) {
-        canvas.drawLine(viewBean.left, viewBean.top, viewBean.right, viewBean.top , mPaintItemBg);//上边线
-        canvas.drawLine(viewBean.left, viewBean.bottom, viewBean.right, viewBean.bottom , mPaintItemBg);//下边线
+        canvas.drawLine(viewBean.left, viewBean.top, viewBean.right, viewBean.top, mPaintItemBg);//上边线
+        canvas.drawLine(viewBean.left, viewBean.bottom, viewBean.right, viewBean.bottom, mPaintItemBg);//下边线
         canvas.drawLine(viewBean.left, viewBean.top, viewBean.left, viewBean.bottom, mPaintItemBg);//左边线
         canvas.drawLine(viewBean.right, viewBean.top, viewBean.right, viewBean.bottom, mPaintItemBg);//右边线
 
@@ -258,26 +249,9 @@ public class CustomTableView extends View {
     }
 
 
-    private String getShowData(int rowIndex, int columnIndex) {
-        if (datas.size() > rowIndex) {
-            return datas.get(rowIndex).size() > columnIndex ? datas.get(rowIndex).get(columnIndex) : "";
-        } else {
-            return "";
-        }
-    }
-
-
-    public void setRowAndColumn(int row, int column) {
-        this.row = row;
-        this.column = column;
-        invalidate();
-    }
-
-    public void setDatas(ArrayList<ArrayList<String>> data) {
-        datas.clear();
-        for (ArrayList<String> rowArrayString : data) {
-            datas.add(rowArrayString);
-        }
+    public void setDatas(List<List<ViewBean>> data) {
+        beans = data;
+        initViewBean(rect);
         invalidate();
     }
 
@@ -362,12 +336,6 @@ public class CustomTableView extends View {
         invalidate();
     }
 
-    public void setColors(int... colors) {
-        if (colors.length > 0) mTextNormalColor = colors[0];
-        if (colors.length > 1) mTextSelectColor = colors[1];
-        if (colors.length > 2) mTextUnableColor = colors[2];
-        invalidate();
-    }
 
     public void setTextNormalColor(int color) {
         mTextNormalColor = color;

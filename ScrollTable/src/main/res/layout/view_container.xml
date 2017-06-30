@@ -6,6 +6,7 @@
 
 
     <com.loopeer.android.librarys.scrolltable.GridHeader
+        android:id="@+id/gridHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -29,26 +29,33 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
 
             <TextView
-                android:text="left"
+                android:id="@+id/tv_left"
                 android:gravity="center"
                 android:layout_marginLeft="9dp"
                 android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:background="@drawable/arrow_left"
+                android:layout_height="wrap_content" />
 
             <TextView
-                android:text="right"
+                android:id="@+id/tv_right"
                 android:gravity="center"
                 android:layout_marginRight="9dp"
                 android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/arrow_right"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_centerInParent="true"
+                android:layout_height="wrap_content" />
 
 
             <TextView
+                android:id="@+id/tv_center"
                 tools:text="一单元"
                 android:gravity="center"
                 android:layout_marginRight="9dp"
