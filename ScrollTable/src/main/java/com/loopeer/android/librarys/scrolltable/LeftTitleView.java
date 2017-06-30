@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeftTitleView extends View {
 
@@ -131,7 +132,7 @@ public class LeftTitleView extends View {
         canvas.drawLine(startX,startY,stopX,stopY,mPaintItemIndicatorLine);
     }
 
-    public void updateTitles(ArrayList<String> data) {
+    public void updateTitles(List<String> data) {
         titles.clear();
         titles.addAll(data);
         updateView();

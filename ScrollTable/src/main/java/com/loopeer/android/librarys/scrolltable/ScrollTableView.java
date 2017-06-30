@@ -10,7 +10,10 @@ import android.widget.Toast;
 import com.loopeer.android.librarys.bean.ViewBean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ScrollTableView extends LinearLayout implements CustomTableView.OnPositionDataClickListener,GridHeader.OnPositionCallBack {
 
@@ -20,6 +23,8 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
     private ArrayList<String> topTitles;
     private ArrayList<String> leftTitles;
     private List<List<ViewBean>> datas;
+
+    LinkedHashMap<String,List<List<ViewBean>>> allUnitHashMap;
 
     public ScrollTableView(Context context) {
         this(context, null);
@@ -75,20 +80,30 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
         contentView.setOnPositionDataClickListener(this);
     }
 
-    public void setDatas(ArrayList<String> topTitlesData, ArrayList<String> leftTitlesData, List<List<ViewBean>> itemData) {
+    public void setDatas(ArrayList<String> leftTitlesData, LinkedHashMap<String,List<List<ViewBean>>> allUnitHashMap) {
         topTitles.clear();
         leftTitles.clear();
         datas.clear();
-        topTitles.addAll(topTitlesData);
+
+        this.allUnitHashMap = allUnitHashMap;
         leftTitles.addAll(leftTitlesData);
-        datas.addAll(itemData);
-        updateView();
+
+        List<String> allUnits = getAllUnit(allUnitHashMap);
+        gridHeader.setDatas(allUnits);
+
     }
 
-    private void updateView() {
-        headerVertical.updateTitles(leftTitles);
-        contentView.setDatas(datas);
+    public List<String> getAllUnit(LinkedHashMap<String,List<List<ViewBean>>> allUnitHashMap){
+        List<String> allUnit = new ArrayList<>();
+        Iterator<Map.Entry<String,List<List<ViewBean>>>> it = allUnitHashMap.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry<String,List<List<ViewBean>>> e = it.next();
+            allUnit.add(e.getKey());
+        }
+
+        return allUnit;
     }
+
 
 
     @Override
@@ -97,7 +112,14 @@ public class ScrollTableView extends LinearLayout implements CustomTableView.OnP
     }
 
     @Override
-    public void click(int position) {
+    public void click(String unit) {
+
+        //update the customTableView;
+        List<List<ViewBean>> datas = allUnitHashMap.get(unit);
+        contentView.setDatas(datas);
+
+        int rows = datas.size();
+        headerVertical.updateTitles(leftTitles.subList(0,rows));
 
     }
 }

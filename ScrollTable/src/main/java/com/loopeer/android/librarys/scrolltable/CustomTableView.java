@@ -252,7 +252,7 @@ public class CustomTableView extends View {
     public void setDatas(List<List<ViewBean>> data) {
         beans = data;
         initViewBean(rect);
-        invalidate();
+        requestLayout();//这里需要重新测量
     }
 
 

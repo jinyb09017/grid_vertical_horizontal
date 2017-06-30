@@ -56,6 +56,15 @@ public class GridHeader extends RelativeLayout implements View.OnClickListener {
         tv_right.setOnClickListener(this);
     }
 
+    public void setDatas(List<String> units){
+        this.units = units;
+        notifyChange();
+
+        //trigger the first callback for the customTableView;
+        if (mOnPositionCallBack != null) {
+            mOnPositionCallBack.click(units.get(position));
+        }
+    }
     @Override
     public void onClick(View v) {
         if (v == tv_left) {
@@ -72,7 +81,7 @@ public class GridHeader extends RelativeLayout implements View.OnClickListener {
         }
 
         if (mOnPositionCallBack != null) {
-            mOnPositionCallBack.click(position);
+            mOnPositionCallBack.click(units.get(position));
         }
         notifyChange();
     }
@@ -99,6 +108,6 @@ public class GridHeader extends RelativeLayout implements View.OnClickListener {
     }
 
     interface OnPositionCallBack {
-        void click(int position);
+        void click(String position);
     }
 }
