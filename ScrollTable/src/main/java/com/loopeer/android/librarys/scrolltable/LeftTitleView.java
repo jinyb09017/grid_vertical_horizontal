@@ -25,8 +25,7 @@ public class LeftTitleView extends View {
     private int mItemWidth;
     private int mItemMargin;
     private int row;
-//    private int mItemIndicatorCircleRadius;
-//    private int mItemIndicatorLineWidth;
+
 
     ArrayList<String> titles;
 
@@ -56,8 +55,7 @@ public class LeftTitleView extends View {
         mItemHeight = getResources().getDimensionPixelSize(R.dimen.table_item_height);
         mItemWidth = getResources().getDimensionPixelSize(R.dimen.table_item_width);
         mItemMargin = getResources().getDimensionPixelSize(R.dimen.table_item_margin);
-//        mItemIndicatorCircleRadius = getResources().getDimensionPixelSize(R.dimen.table_header_circle_radius);
-//        mItemIndicatorLineWidth = getResources().getDimensionPixelSize(R.dimen.table_header_indicator_width);
+
     }
 
     private void initPaint() {
@@ -103,21 +101,12 @@ public class LeftTitleView extends View {
 
             float top = mItemHeight * rowIndex + mItemMargin * (rowIndex + 1);
             float y = top + mItemHeight - (mItemHeight - fontHeight) / 2 - fontMetrics.bottom;
-//            float y = rowIndex * (mItemHeight + mItemMargin) + mItemHeight - (mItemHeight - fontHeight) / 2 - fontMetrics.bottom - mItemHeight / 2 + getResources().getDimension(R.dimen.table_default_margin_top) - mItemMargin / 2 + mItemMargin;
 
             float x = mItemWidth / 2 - textWidth / 2;
 
             canvas.drawText(content, x, y, mPaintTextNormal);
 
-//            canvas.drawCircle(mItemWidth - mItemIndicatorLineWidth - mItemIndicatorCircleRadius,
-//                    rowIndex * (mItemHeight + mItemMargin) + getResources().getDimension(R.dimen.table_default_margin_top) - mItemMargin / 2 + mItemMargin,
-//                    mItemIndicatorCircleRadius, mPaintItemIndicatorCircle);
-//
-//            canvas.drawRect(mItemWidth - mItemIndicatorLineWidth,
-//                    rowIndex * (mItemHeight + mItemMargin) + getResources().getDimension(R.dimen.table_default_margin_top) - mItemMargin / 2 - mItemMargin / 2 + mItemMargin,
-//                    mItemWidth,
-//                    rowIndex * (mItemHeight + mItemMargin) + getResources().getDimension(R.dimen.table_default_margin_top) - mItemMargin / 2 + mItemMargin / 2 + mItemMargin,
-//                    mPaintItemIndicatorLine);
+
 
 
         }
@@ -170,16 +159,7 @@ public class LeftTitleView extends View {
         mPaintItemIndicatorCircle.setColor(mItemIndicatorColor);
         invalidate();
     }
-//
-//    public void setIndicatorCircleRadius(int radius) {
-//        mItemIndicatorCircleRadius = radius;
-//        invalidate();
-//    }
-//
-//    public void setItemIndicatorLineWidth(int width) {
-//        mItemIndicatorLineWidth = width;
-//        invalidate();
-//    }
+
 
     public void setPaintTextNormalSize(float size) {
         mTextTitleSize = size;
@@ -197,8 +177,7 @@ public class LeftTitleView extends View {
         setItemMargin(a.getDimensionPixelSize(R.styleable.ScrollTableView_dataMargin, mItemMargin));
         setTextLeftTitleColor(a.getColor(R.styleable.ScrollTableView_textLeftTitleColor, mTextLeftTitleColor));
         setItemIndicatorColor(a.getColor(R.styleable.ScrollTableView_itemIndicatorColor, mItemIndicatorColor));
-//        setIndicatorCircleRadius(a.getDimensionPixelSize(R.styleable.ScrollTableView_itemIndicatorCircleRadius, mItemIndicatorCircleRadius));
-//        setItemIndicatorLineWidth(a.getDimensionPixelSize(R.styleable.ScrollTableView_itemIndicatorLineWidth, mItemIndicatorLineWidth));
+
         setPaintTextNormalSize(a.getDimension(R.styleable.ScrollTableView_textTitleSize, mTextTitleSize));
 
     }

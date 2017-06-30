@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -130,7 +129,6 @@ public class CustomTableView extends View {
                     right = left + convert(viewBean.getWidth(), mItemWidth);
                 }
 
-//                float left = convert(viewBean.getRightTopUnit()) - convert(viewBean.getWidth())-mItemMargin * (columnIndex+1);
                 float top = rowIndex * (mItemHeight) + mItemMargin * (rowIndex + 1);
                 float bottom = top + mItemHeight * viewBean.getHeight() + mItemMargin * (viewBean.getHeight() - 1);
 
@@ -169,39 +167,11 @@ public class CustomTableView extends View {
 
                 ViewBean viewBean = rowBeans.get(columnIndex);
 
-//                int allUnit = (int) (viewBean.getRightTopUnit() - viewBean.getWidth());//距离左边的正常单元格数，用于计算itemMargin数目
-//                int left = allUnit * (mItemWidth + mItemMargin) + mItemMargin + convert(viewBean.getRightTopUnit() - viewBean.getWidth() - allUnit, mItemWidth);//整数单元 + 拆分单元
-//
-//                float right;
-//                if (viewBean.getWidth() > 1) {
-//                    right = left + convert(viewBean.getWidth(), mItemWidth) + convert((viewBean.getWidth() - 1), mItemMargin);
-//                } else {
-//                    right = left + convert(viewBean.getWidth(), mItemWidth);
-//                }
-//
-////                float left = convert(viewBean.getRightTopUnit()) - convert(viewBean.getWidth())-mItemMargin * (columnIndex+1);
-//                float top = rowIndex * (mItemHeight) + mItemMargin * (rowIndex + 1);
-//                float bottom = top + mItemHeight * viewBean.getHeight() + mItemMargin * (viewBean.getHeight() - 1);
-//
-//                viewBean.left = left;
-//                viewBean.right = right;
-//                viewBean.top = top;
-//                viewBean.bottom = bottom;
 
                 float left = viewBean.left;
                 float right = viewBean.right;
                 float top = viewBean.top;
                 float bottom = viewBean.bottom;
-
-
-//                if (columnIndex == 1) {
-//                    mPaintItemBg.setColor(Color.parseColor("#FF6600"));
-//                    Log.e("table", "bottom" + bottom);
-//                }
-//                if (columnIndex == 2) {
-//                    mPaintItemBg.setColor(Color.parseColor("#00CD66"));
-//                    Log.e("table", "top" + top);
-//                }
 
 
                 //这里画大背景
@@ -304,10 +274,7 @@ public class CustomTableView extends View {
 
                 boolean hit = x > viewBean.left && x < viewBean.right && y > viewBean.top && y < viewBean.bottom;
                 if (hit) {
-                    Log.e("hit", "i was hit");
                     return viewBean;
-                } else {
-                    Log.e("hit", "i was not hit");
                 }
 
             }
