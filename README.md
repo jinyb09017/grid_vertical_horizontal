@@ -2,4 +2,4 @@
 
 Screeshot
 ====
-![](/screenshot/screenshot3.gif)
+![](/screenshot/view_horizontal_vertical.gif)
